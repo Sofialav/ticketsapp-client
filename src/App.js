@@ -3,12 +3,15 @@ import { Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import "./App.css";
+import EventsListContainer from "./components/EventsListContainer";
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div>Hi</div>
+        <div>
+          <Route path="/" exact component={EventsListContainer} />
+        </div>
       </Provider>
     );
   }
