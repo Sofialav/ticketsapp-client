@@ -5,10 +5,13 @@ import SignupFormContainer from "./SignupFormContainer";
 
 class AuthFormContainer extends Component {
   render() {
+    const errors = this.props.errors.map(error => {
+      return <div>{error}</div>;
+    });
     return (
       <div>
         <LoginFormContainer history={this.props.history} />
-        <p>{this.props.errors}</p>
+        <div>{errors}</div>
         <SignupFormContainer />
       </div>
     );
