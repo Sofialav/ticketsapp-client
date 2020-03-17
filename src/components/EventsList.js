@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 class EventsList extends Component {
   render() {
@@ -9,10 +10,19 @@ class EventsList extends Component {
       return (
         <div key={event.id}>
           <h4>{event.name}</h4>
+          <img src={event.logo} alt="event logo" />
+          <div>
+            {moment(event.start_date).format("MMMM Do YYYY, h:mm:ss a")}
+          </div>
         </div>
       );
     });
-    return <div>{displayEvents}</div>;
+    return (
+      <div>
+        <div>{displayEvents}</div>
+        <div>Total: {this.props.events.total}</div>
+      </div>
+    );
   }
 }
 
