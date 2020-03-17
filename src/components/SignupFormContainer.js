@@ -1,9 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { signup } from "../store/actions";
 import SignupForm from "./AuthForm";
 
 class SignupFormContainer extends Component {
   state = { login: "", password: "", email: "" };
+
+  onSubmit = event => {
+    event.preventDefault();
+    this.props.signup(this.state);
+    this.setState({ name: "", password: "", email: "" });
+  };
+  onChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
   render() {
     return (
       <div>
@@ -19,4 +32,4 @@ class SignupFormContainer extends Component {
   }
 }
 
-export default connect(null)(SignupFormContainer);
+export default connect(null, { signup })(SignupFormContainer);

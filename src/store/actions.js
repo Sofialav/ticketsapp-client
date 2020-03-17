@@ -56,3 +56,26 @@ export function login(data, history) {
     }
   };
 }
+// signup
+const addUser = () => {
+  return {
+    type: "ADD_USER"
+  };
+};
+export function signup(data) {
+  return async function(dispatch) {
+    try {
+      await superagent.post(`${baseUrl}/users`).send(data);
+      const action = addUser();
+      await dispatch(action);
+      dispatch(removeError());
+    } catch (error) {
+      console.log("error", error.response);
+      if (error.response) {
+        const errorMessage = displayError(error.response.body.message);
+        return dispatch(errorMessage);
+      }
+      console.error(error);
+    }
+  };
+}
