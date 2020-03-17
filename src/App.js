@@ -5,6 +5,7 @@ import store from "./store/store";
 import "./App.css";
 import EventsListContainer from "./components/EventsListContainer";
 import Navbar from "./components/Navbar";
+import LoginFormContainer from "./components/LoginFormContainer";
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         <div>
           <Navbar />
           <Route path="/" exact component={EventsListContainer} />
+          <Route path="/login" exact component={LoginFormContainer} />
         </div>
       </Provider>
     );
