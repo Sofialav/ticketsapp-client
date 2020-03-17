@@ -71,11 +71,12 @@ export function signup(data) {
       dispatch(removeError());
     } catch (error) {
       console.log("error", error.response);
-      if (error.response) {
+      if (error.response.body.message) {
         const errorMessage = displayError(error.response.body.message);
         return dispatch(errorMessage);
       }
-      console.error(error);
+      const validationError = displayError(error.response.body);
+      return dispatch(validationError);
     }
   };
 }
