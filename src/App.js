@@ -5,7 +5,7 @@ import store from "./store/store";
 import "./App.css";
 import EventsListContainer from "./components/EventsListContainer";
 import Navbar from "./components/Navbar";
-import AuthFormContainer from "./components/AuthFormContainer";
+import AuthFormContainer from "./components/authorization/AuthFormContainer";
 import EventDetailsContainer from "./components/EventDetailsContainer";
 
 class App extends Component {
