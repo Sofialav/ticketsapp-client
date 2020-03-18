@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import moment from "moment";
 
 class EventsList extends Component {
@@ -10,10 +11,14 @@ class EventsList extends Component {
       return (
         <div key={event.id}>
           <h4>{event.name}</h4>
-          <img src={event.logo} alt="event logo" />
-          <div>
-            {moment(event.start_date).format("MMMM Do YYYY, h:mm:ss a")}
-          </div>
+          <Link to={`/events/${event.id}`}>
+            <img
+              src={event.logo}
+              srcSet="https://images.all-free-download.com/images/graphiclarge/abstract_music_background_311570.jpg"
+              alt="event logo"
+            />
+          </Link>
+          <div>{moment(event.start_date).format("MMMM Do YYYY, h:mm a")}</div>
         </div>
       );
     });
