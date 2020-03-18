@@ -23,7 +23,7 @@ const eventsFetched = events => ({
 });
 export const loadEvents = () => async (dispatch, getState) => {
   // when the state already contains events, we don't fetch them again
-  if (getState().events.length) return;
+  if (getState().events) return;
   try {
     const response = await superagent.get(`${baseUrl}/events`);
     console.log(response.body);
@@ -49,6 +49,7 @@ export function login(data, history) {
       return history.push("/userpage");
     } catch (error) {
       if (error.response) {
+        await dispatch(removeError());
         const errorMessage = displayError(error.response.body.message);
         return dispatch(errorMessage);
       }
@@ -70,6 +71,7 @@ export function signup(data) {
       await dispatch(action);
       dispatch(removeError());
     } catch (error) {
+      await dispatch(removeError());
       if (error.response && error.response.body.message) {
         const errorMessage = displayError(error.response.body.message);
         return dispatch(errorMessage);

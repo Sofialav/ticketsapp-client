@@ -5,9 +5,7 @@ import SignupFormContainer from "./SignupFormContainer";
 
 class AuthFormContainer extends Component {
   render() {
-    const errors = this.props.errors.map(error => {
-      return <div>{error}</div>;
-    });
+    const errors = this.props.errors.map(error => <p>{error}</p>);
     return (
       <div>
         <LoginFormContainer history={this.props.history} />
