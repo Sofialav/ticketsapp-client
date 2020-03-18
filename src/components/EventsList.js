@@ -12,7 +12,11 @@ class EventsList extends Component {
         <div key={event.id}>
           <h4>{event.name}</h4>
           <Link to={`/events/${event.id}`}>
-            <img src={event.logo} alt="event logo" />
+            <img
+              src={event.logo}
+              srcSet="https://images.all-free-download.com/images/graphiclarge/abstract_music_background_311570.jpg"
+              alt="event logo"
+            />
           </Link>
           <div>{moment(event.start_date).format("MMMM Do YYYY, h:mm a")}</div>
         </div>
