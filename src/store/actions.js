@@ -1,6 +1,20 @@
 import superagent from "superagent";
 const baseUrl = "http://localhost:4000";
 
+//add  error:
+export const displayError = payload => {
+  return {
+    type: "ERROR_MESSAGE",
+    payload
+  };
+};
+// remove error:
+export const removeError = () => {
+  return {
+    type: "REMOVE_ERROR"
+  };
+};
+
 // loading events
 export const EVENTS_FETCHED = "EVENTS_FETCHED";
 const eventsFetched = events => ({
@@ -19,3 +33,53 @@ export const loadEvents = () => async (dispatch, getState) => {
     console.error(error);
   }
 };
+// login
+export const JWT = "JWT";
+const loginUser = payload => ({
+  type: JWT,
+  payload
+});
+export function login(data, history) {
+  return async function(dispatch) {
+    try {
+      const response = await superagent.post(`${baseUrl}/login`).send(data);
+      const action = loginUser(response.body.jwt);
+      await dispatch(action);
+      await dispatch(removeError());
+      return history.push("/userpage");
+    } catch (error) {
+      if (error.response) {
+        await dispatch(removeError());
+        const errorMessage = displayError(error.response.body.message);
+        return dispatch(errorMessage);
+      }
+      console.error(error);
+    }
+  };
+}
+// signup
+const addUser = () => {
+  return {
+    type: "ADD_USER"
+  };
+};
+export function signup(data) {
+  return async function(dispatch) {
+    try {
+      await superagent.post(`${baseUrl}/users`).send(data);
+      const action = addUser();
+      await dispatch(action);
+      dispatch(removeError());
+    } catch (error) {
+      await dispatch(removeError());
+      if (error.response && error.response.body.message) {
+        const errorMessage = displayError(error.response.body.message);
+        return dispatch(errorMessage);
+      } else if (error.response && error.response.body) {
+        const validationError = displayError(error.response.body);
+        return dispatch(validationError);
+      }
+      console.error(error);
+    }
+  };
+}
