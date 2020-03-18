@@ -26,7 +26,6 @@ export const loadEvents = () => async (dispatch, getState) => {
   if (getState().events) return;
   try {
     const response = await superagent.get(`${baseUrl}/events`);
-    console.log(response.body);
     const action = eventsFetched(response.body);
     dispatch(action);
   } catch (error) {
@@ -83,3 +82,23 @@ export function signup(data) {
     }
   };
 }
+// show single event info
+export const EVENT_DETAILS = "EVENT_DETAILS";
+const eventFetched = event => ({
+  type: EVENT_DETAILS,
+  event
+});
+export const loadEvent = id => async (dispatch, getState) => {
+  // if (getState().events) {
+  //   const resultEvent = getState().events.events.filter(
+  //     event => event.id === parseInt(id)
+  //   );
+  //   if (resultEvent.length) return dispatch(resultEvent);
+  // }
+  try {
+    const response = await superagent.get(`${baseUrl}/events/${id}`);
+    dispatch(eventFetched(response.body));
+  } catch (error) {
+    console.error(error);
+  }
+};
