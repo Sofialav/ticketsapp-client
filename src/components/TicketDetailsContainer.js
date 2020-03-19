@@ -1,20 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import TicketDetails from "./TicketDetails";
-import { loadTicket, loadEvent } from "../store/actions";
+import { loadTicket, loadEvent, loadAuthor } from "../store/actions";
 import moment from "moment";
 // import { fraudCalc } from "../fraudCalculator";
 
 class TicketDetailsContainer extends Component {
   async componentDidMount() {
-    try {
-      const ticketId = this.props.match.params.ticketId;
-      await this.props.loadTicket(ticketId);
-      const eventId = this.props.ticket.event.id;
-      this.props.loadEvent(eventId);
-    } catch (error) {
-      console.error(error);
-    }
+    const ticketId = this.props.match.params.ticketId;
+    await this.props.loadTicket(ticketId);
+    const eventId = this.props.ticket.event.id;
+    await this.props.loadEvent(eventId);
+    this.props.loadAuthor(this.props.ticket.user.id);
   }
   fraudCalc = () => {
     let x = 0;
@@ -39,12 +36,10 @@ class TicketDetailsContainer extends Component {
       x -= 10;
     } else x += 10;
     // ticket numbers deduction
-    // WIP
-    // let userTickets = this.props.user.tickets;
-    // console.log("tickets quo", userTickets);
-    // if (userTickets.length === 1) {
-    //   x += 10;
-    // }
+    let userTickets = this.props.author.tickets;
+    if (userTickets.length === 1) {
+      x += 10;
+    }
     // comments deduction WIP
     //range 5%-95%
     if (x < 5) {
@@ -58,20 +53,26 @@ class TicketDetailsContainer extends Component {
   render() {
     // console.log(this.fraudCalc());
     return (
-      <TicketDetails
-        ticket={this.props.ticket}
-        event={this.props.event}
-        fraud={this.fraudCalc}
-      />
+      <div>
+        <TicketDetails
+          ticket={this.props.ticket}
+          event={this.props.event}
+          author={this.props.author}
+          fraud={this.fraudCalc}
+        />
+        <br />
+        <div>COMMENTS PLACEHOLDER</div>
+      </div>
     );
   }
 }
 function mapStateToProps(state) {
   return {
     ticket: state.ticket,
-    event: state.event
+    event: state.event,
+    author: state.author
   };
 }
-export default connect(mapStateToProps, { loadTicket, loadEvent })(
+export default connect(mapStateToProps, { loadTicket, loadEvent, loadAuthor })(
   TicketDetailsContainer
 );
