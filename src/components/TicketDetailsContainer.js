@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import TicketDetails from "./TicketDetails";
 import { loadTicket, loadEvent, loadAuthor } from "../store/actions";
 import moment from "moment";
+import TicketComments from "./TicketComments";
 // import { fraudCalc } from "../fraudCalculator";
 
 class TicketDetailsContainer extends Component {
@@ -40,7 +41,11 @@ class TicketDetailsContainer extends Component {
     if (userTickets.length === 1) {
       x += 10;
     }
-    // comments deduction WIP
+    // comments deduction
+    let comments = this.props.ticket.comments.length;
+    if (comments > 3) {
+      x += 5;
+    }
     //range 5%-95%
     if (x < 5) {
       x = 5;
@@ -61,7 +66,7 @@ class TicketDetailsContainer extends Component {
           fraud={this.fraudCalc}
         />
         <br />
-        <div>COMMENTS PLACEHOLDER</div>
+        <TicketComments ticket={this.props.ticket} />
       </div>
     );
   }

@@ -9,7 +9,7 @@ class SignupFormContainer extends Component {
   onSubmit = event => {
     event.preventDefault();
     this.props.signup(this.state);
-    this.setState({ name: "", password: "", email: "" });
+    this.setState({ login: "", password: "", email: "" });
   };
   onChange = event => {
     this.setState({
