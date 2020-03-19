@@ -7,6 +7,7 @@ import EventsListContainer from "./components/EventsListContainer";
 import Navbar from "./components/Navbar";
 import AuthFormContainer from "./components/authorization/AuthFormContainer";
 import EventDetailsContainer from "./components/EventDetailsContainer";
+import TicketDetailsContainer from "./components/TicketDetailsContainer";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
           <Route path="/" exact component={EventsListContainer} />
           <Route path="/login" exact component={AuthFormContainer} />
           <Route path="/events/:eventId" component={EventDetailsContainer} />
+          <Route path="/tickets/:ticketId" component={TicketDetailsContainer} />
         </div>
       </Provider>
     );
