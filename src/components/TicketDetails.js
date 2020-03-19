@@ -1,25 +1,50 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 class TicketDetails extends Component {
-  render() {
-    if (!Object.keys(this.props.ticket).length) {
-      return <div>Loading...</div>;
-    }
+  ticketForm = props => {
     const ticket = this.props.ticket;
-    console.log(ticket);
     return (
       <main>
         <h2>Ticket information</h2>
-        <h4>{ticket.event.name}</h4>
-        <p>{ticket.event.description}</p>
-        <div>Starts on: {ticket.event.start_date}</div>
-        <div>Ends on: {ticket.event.end_date}</div>
-        <h4>€{ticket.price}</h4>
-        <div>{ticket.description}</div>
-        <div>FRAUD RISK PLACEHOLDER</div>
-        <div>Posted by: {ticket.user.login}</div>
+        <section>
+          <h4>{ticket.event.name}</h4>
+          <p>{ticket.event.description}</p>
+          <div>
+            Starts on:{" "}
+            {moment(ticket.event.start_date).format("MMMM Do, h:mm a")}
+          </div>
+          <div>
+            Ends on: {moment(ticket.event.end_date).format("MMMM Do, h:mm a")}
+          </div>
+          <h4>€{ticket.price}</h4>
+          <div>{ticket.description}</div>
+          {props.children}
+          <div>Posted by: {ticket.user.login}</div>
+        </section>
+        <h3>Comments:</h3>
+        <div>PLACEHOLDER</div>
       </main>
     );
+  };
+
+  render() {
+    if (
+      !Object.keys(this.props.ticket).length ||
+      !Object.keys(this.props.event).length
+    ) {
+      return <div>Loading...</div>;
+    }
+
+    if (this.props.event.tickets) {
+      const fraud = this.props.fraud;
+      return (
+        <this.ticketForm>
+          <div>FRAUD RATING: {fraud()}</div>
+        </this.ticketForm>
+      );
+    }
+    return <this.ticketForm />;
   }
 }
 

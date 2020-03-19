@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 class EventDetails extends Component {
   ticketsCheck = () => {
     if (this.props.event.tickets && this.props.event.tickets.length) {
       const tickets = this.props.event.tickets.map(ticket => {
         return (
-          <div key={ticket.id}>
-            <h4>€{ticket.price}</h4>
-            <div>{ticket.description}</div>
-            <div>Posted by: </div>
-          </div>
+          <Link to={`/tickets/${ticket.id}`}>
+            <div key={ticket.id}>
+              <h4>€{ticket.price}</h4>
+              <div>{ticket.description}</div>
+              <div>Posted by: </div>
+            </div>
+          </Link>
         );
       });
       return tickets;
