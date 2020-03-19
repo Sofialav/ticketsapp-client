@@ -23,7 +23,7 @@ const eventsFetched = events => ({
 });
 export const loadEvents = () => async (dispatch, getState) => {
   // when the state already contains events, we don't fetch them again
-  if (getState().events) return;
+  if (Object.keys(getState().events).length) return;
   try {
     const response = await superagent.get(`${baseUrl}/events`);
     const action = eventsFetched(response.body);

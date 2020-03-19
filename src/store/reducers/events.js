@@ -1,6 +1,6 @@
 import { EVENTS_FETCHED } from "../actions";
 
-export default function(state = null, action) {
+export default function(state = {}, action) {
   switch (action.type) {
     case EVENTS_FETCHED:
       return action.events;

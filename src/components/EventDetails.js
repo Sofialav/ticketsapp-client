@@ -18,7 +18,7 @@ class EventDetails extends Component {
     return <div>Sorry, no tickets available now</div>;
   };
   render() {
-    if (!this.props.event) {
+    if (!Object.keys(this.props.event).length) {
       return <div>Loading...</div>;
     }
     const event = this.props.event;

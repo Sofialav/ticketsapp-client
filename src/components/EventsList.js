@@ -4,7 +4,7 @@ import moment from "moment";
 
 class EventsList extends Component {
   render() {
-    if (!this.props.events) {
+    if (!Object.keys(this.props.events).length) {
       return <div>Loading...</div>;
     }
     const displayEvents = this.props.events.events.map(event => {
