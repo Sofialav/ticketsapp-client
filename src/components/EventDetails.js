@@ -17,12 +17,12 @@ class EventDetails extends Component {
     }
     return <div>Sorry, no tickets available now</div>;
   };
+
   render() {
     if (!Object.keys(this.props.event).length) {
       return <div>Loading...</div>;
     }
     const event = this.props.event;
-
     return (
       <main>
         <div>
@@ -35,13 +35,11 @@ class EventDetails extends Component {
           <div>
             Starts on: {moment(event.start_date).format("MMMM Do, h:mm a")}
           </div>
-          <div>Till: {moment(event.end_date).format("MMMM Do, h:mm a")}</div>
+          <div>Ends on: {moment(event.end_date).format("MMMM Do, h:mm a")}</div>
           <p>{event.description}</p>
         </div>
-        <div>
-          <h2>Tickets for this event:</h2>
-          {this.ticketsCheck()}
-        </div>
+        <h2>Tickets for this event:</h2>
+        <ul>{this.ticketsCheck()}</ul>
       </main>
     );
   }

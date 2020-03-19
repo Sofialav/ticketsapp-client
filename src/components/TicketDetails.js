@@ -11,7 +11,13 @@ class TicketDetails extends Component {
       <main>
         <h2>Ticket information</h2>
         <h4>{ticket.event.name}</h4>
-        <div>€{ticket.price}</div>
+        <p>{ticket.event.description}</p>
+        <div>Starts on: {ticket.event.start_date}</div>
+        <div>Ends on: {ticket.event.end_date}</div>
+        <h4>€{ticket.price}</h4>
+        <div>{ticket.description}</div>
+        <div>FRAUD RISK PLACEHOLDER</div>
+        <div>Posted by: {ticket.user.login}</div>
       </main>
     );
   }
