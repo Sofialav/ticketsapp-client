@@ -23,7 +23,7 @@ class Navbar extends Component {
   render() {
     return (
       <nav>
-        <Link to={"/"}>
+        <Link to={"/eventsByPage/1"}>
           <div>Home</div>
         </Link>
         {this.loginCheck()}
