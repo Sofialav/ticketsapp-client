@@ -21,11 +21,11 @@ const eventsFetched = events => ({
   type: EVENTS_FETCHED,
   events
 });
-export const loadEvents = () => async (dispatch, getState) => {
-  // when the state already contains events, we don't fetch them again
-  if (Object.keys(getState().events).length) return;
+export const loadEvents = offsetValue => async (dispatch, getState) => {
   try {
-    const response = await superagent.get(`${baseUrl}/events`);
+    const response = await superagent
+      .get(`${baseUrl}/events`)
+      .query({ offset: offsetValue });
     const action = eventsFetched(response.body);
     dispatch(action);
   } catch (error) {
