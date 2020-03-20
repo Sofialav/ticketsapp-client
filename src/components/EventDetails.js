@@ -20,7 +20,12 @@ class EventDetails extends Component {
     }
     return <div>Sorry, no tickets available now</div>;
   };
-
+  sellTicket = () => {
+    if (this.props.jwt) {
+      return <button>Sell ticket for this event</button>;
+    }
+    return null;
+  };
   render() {
     if (!Object.keys(this.props.event).length) {
       return <div>Loading...</div>;
@@ -28,7 +33,7 @@ class EventDetails extends Component {
     const event = this.props.event;
     return (
       <main>
-        <div>
+        <section>
           <h2>{event.name}</h2>
           <img
             src={event.logo}
@@ -40,7 +45,8 @@ class EventDetails extends Component {
           </div>
           <div>Ends on: {moment(event.end_date).format("MMMM Do, h:mm a")}</div>
           <p>{event.description}</p>
-        </div>
+        </section>
+        <this.sellTicket />
         <h2>Tickets for this event:</h2>
         <ul>{this.ticketsCheck()}</ul>
       </main>

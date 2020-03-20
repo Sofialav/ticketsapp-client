@@ -10,13 +10,14 @@ class EventDetailsContainer extends Component {
   }
 
   render() {
-    return <EventDetails event={this.props.event} />;
+    return <EventDetails event={this.props.event} jwt={this.props.user} />;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    event: state.event
+    event: state.event,
+    user: state.user
   };
 }
 export default connect(mapStateToProps, { loadEvent })(EventDetailsContainer);

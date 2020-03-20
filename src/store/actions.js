@@ -45,7 +45,7 @@ export function login(data, history) {
       const action = loginUser(response.body.jwt);
       await dispatch(action);
       await dispatch(removeError());
-      return history.push("/userpage");
+      return history.push("/myPage");
     } catch (error) {
       if (error.response) {
         await dispatch(removeError());
