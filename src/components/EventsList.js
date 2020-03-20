@@ -14,7 +14,7 @@ class EventsList extends Component {
           <Link to={`/events/${event.id}`}>
             <img
               src={event.logo}
-              srcSet="https://images.all-free-download.com/images/graphiclarge/abstract_music_background_311570.jpg"
+              srcSet={require("../images/event_logo.jpg")}
               alt="event logo"
             />
           </Link>
@@ -22,10 +22,14 @@ class EventsList extends Component {
         </div>
       );
     });
+    const nextPage = Number(this.props.pageId) + 1;
     return (
       <div>
-        <div>{displayEvents}</div>
+        <main>{displayEvents}</main>
         <div>Total: {this.props.events.total}</div>
+        <Link to={`/eventsByPage/${nextPage}`}>
+          <button>Next page</button>
+        </Link>
       </div>
     );
   }

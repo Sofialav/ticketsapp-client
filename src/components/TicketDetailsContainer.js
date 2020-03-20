@@ -4,7 +4,6 @@ import TicketDetails from "./TicketDetails";
 import { loadTicket, loadEvent, loadAuthor } from "../store/actions";
 import moment from "moment";
 import TicketComments from "./TicketComments";
-// import { fraudCalc } from "../fraudCalculator";
 
 class TicketDetailsContainer extends Component {
   async componentDidMount() {

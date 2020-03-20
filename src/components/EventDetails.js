@@ -32,7 +32,7 @@ class EventDetails extends Component {
           <h2>{event.name}</h2>
           <img
             src={event.logo}
-            srcSet="https://images.all-free-download.com/images/graphiclarge/abstract_music_background_311570.jpg"
+            srcSet={require("../images/event_logo.jpg")}
             alt="event logo"
           />
           <div>

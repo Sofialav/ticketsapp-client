@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import { Redirect } from "react-router";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import "./App.css";
@@ -15,7 +16,8 @@ class App extends Component {
       <Provider store={store}>
         <div>
           <Navbar />
-          <Route path="/" exact component={EventsListContainer} />
+          <Redirect exact path="/" to="/eventsByPage/1" />
+          <Route path="/eventsByPage/:pageId" component={EventsListContainer} />
           <Route path="/login" exact component={AuthFormContainer} />
           <Route path="/events/:eventId" component={EventDetailsContainer} />
           <Route path="/tickets/:ticketId" component={TicketDetailsContainer} />

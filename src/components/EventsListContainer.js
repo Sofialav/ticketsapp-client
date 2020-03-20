@@ -7,9 +7,14 @@ class EventsListContainer extends Component {
   componentDidMount() {
     this.props.loadEvents();
   }
-
   render() {
-    return <EventsList events={this.props.events} />;
+    console.log(this.props);
+    return (
+      <EventsList
+        events={this.props.events}
+        pageId={this.props.match.params.pageId}
+      />
+    );
   }
 }
 
