@@ -23,7 +23,7 @@ const eventsFetched = events => ({
 });
 export const loadEvents = () => async (dispatch, getState) => {
   // when the state already contains events, we don't fetch them again
-  if (getState().events) return;
+  if (Object.keys(getState().events).length) return;
   try {
     const response = await superagent.get(`${baseUrl}/events`);
     const action = eventsFetched(response.body);
@@ -88,16 +88,38 @@ const eventFetched = event => ({
   type: EVENT_DETAILS,
   event
 });
-export const loadEvent = id => async (dispatch, getState) => {
-  // if (getState().events) {
-  //   const resultEvent = getState().events.events.filter(
-  //     event => event.id === parseInt(id)
-  //   );
-  //   if (resultEvent.length) return dispatch(resultEvent);
-  // }
+export const loadEvent = id => async dispatch => {
   try {
     const response = await superagent.get(`${baseUrl}/events/${id}`);
     dispatch(eventFetched(response.body));
+  } catch (error) {
+    console.error(error);
+  }
+};
+// get user by Id
+export const AUTHOR_FETCHED = "AUTHOR_FETCHED";
+const authorFetched = author => ({
+  type: AUTHOR_FETCHED,
+  author
+});
+export const loadAuthor = id => async dispatch => {
+  try {
+    const author = await superagent.get(`${baseUrl}/users/${id}`);
+    dispatch(authorFetched(author.body));
+  } catch (error) {
+    console.error(error);
+  }
+};
+// get ticket by Id
+export const TICKET_DETAILS = "TICKET_DETAILS";
+const ticketFetched = ticket => ({
+  type: TICKET_DETAILS,
+  ticket
+});
+export const loadTicket = id => async dispatch => {
+  try {
+    const ticket = await superagent.get(`${baseUrl}/tickets/${id}`);
+    dispatch(ticketFetched(ticket.body));
   } catch (error) {
     console.error(error);
   }

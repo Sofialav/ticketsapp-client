@@ -8,6 +8,7 @@ class EventDetailsContainer extends Component {
     const eventId = this.props.match.params.eventId;
     this.props.loadEvent(eventId);
   }
+
   render() {
     return <EventDetails event={this.props.event} />;
   }
