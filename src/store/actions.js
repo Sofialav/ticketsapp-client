@@ -96,20 +96,24 @@ export const loadEvent = id => async dispatch => {
     console.error(error);
   }
 };
-// get user by Id
+// get logged user by jwt
 export const AUTHOR_FETCHED = "AUTHOR_FETCHED";
 const authorFetched = author => ({
   type: AUTHOR_FETCHED,
   author
 });
-export const loadAuthor = id => async dispatch => {
+export const loadAuthor = jwt => async dispatch => {
+  const reqHeader = "Bearer " + jwt;
   try {
-    const author = await superagent.get(`${baseUrl}/users/${id}`);
+    const author = await superagent
+      .get(`${baseUrl}/users/loggedUser`)
+      .set("Authorization", reqHeader);
     dispatch(authorFetched(author.body));
   } catch (error) {
     console.error(error);
   }
 };
+
 // get ticket by Id
 export const TICKET_DETAILS = "TICKET_DETAILS";
 const ticketFetched = ticket => ({
@@ -120,6 +124,22 @@ export const loadTicket = id => async dispatch => {
   try {
     const ticket = await superagent.get(`${baseUrl}/tickets/${id}`);
     dispatch(ticketFetched(ticket.body));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// post a comment
+export const ADD_COMMENT = "ADD_COMMENT";
+const newComment = payload => ({
+  type: ADD_COMMENT,
+  payload
+});
+export const addComment = data => async dispatch => {
+  try {
+    const comment = await superagent.post(`${baseUrl}/comments`).send(data);
+    const action = newComment(comment.body);
+    dispatch(action);
   } catch (error) {
     console.error(error);
   }

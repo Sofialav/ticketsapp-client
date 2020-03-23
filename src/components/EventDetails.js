@@ -11,7 +11,7 @@ class EventDetails extends Component {
             <div key={ticket.id}>
               <h4>€{ticket.price}</h4>
               <div>{ticket.description}</div>
-              <div>Posted by: </div>
+              <div>Posted by: {ticket.user.login}</div>
             </div>
           </Link>
         );

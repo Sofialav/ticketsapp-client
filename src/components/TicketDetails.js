@@ -17,27 +17,14 @@ class TicketDetails extends Component {
         </div>
         <h4>€{ticket.price}</h4>
         <div>{ticket.description}</div>
-        {props.children}
+        <div>FRAUD RATING: {ticket.fraud}</div>
       </main>
     );
   };
 
   render() {
-    if (
-      !Object.keys(this.props.ticket).length ||
-      !Object.keys(this.props.event).length ||
-      !Object.keys(this.props.author).length
-    ) {
+    if (!Object.keys(this.props.ticket).length) {
       return <div>Loading...</div>;
-    }
-
-    if (this.props.event && this.props.author) {
-      const fraud = this.props.fraud;
-      return (
-        <this.ticketForm>
-          <div>FRAUD RATING: {fraud()}</div>
-        </this.ticketForm>
-      );
     }
     return <this.ticketForm />;
   }

@@ -13,8 +13,8 @@ class Navbar extends Component {
       return login;
     } else {
       const login = (
-        <Link to={"/usertickets"}>
-          <div>My tickets</div>
+        <Link to={"/myPage"}>
+          <div>My page</div>
         </Link>
       );
       return login;
