@@ -96,20 +96,24 @@ export const loadEvent = id => async dispatch => {
     console.error(error);
   }
 };
-// get user by Id
+// get logged user by jwt
 export const AUTHOR_FETCHED = "AUTHOR_FETCHED";
 const authorFetched = author => ({
   type: AUTHOR_FETCHED,
   author
 });
-export const loadAuthor = id => async dispatch => {
+export const loadAuthor = jwt => async dispatch => {
+  const reqHeader = "Bearer " + jwt;
   try {
-    const author = await superagent.get(`${baseUrl}/users/${id}`);
+    const author = await superagent
+      .get(`${baseUrl}/users/loggedUser`)
+      .set("Authorization", reqHeader);
     dispatch(authorFetched(author.body));
   } catch (error) {
     console.error(error);
   }
 };
+
 // get ticket by Id
 export const TICKET_DETAILS = "TICKET_DETAILS";
 const ticketFetched = ticket => ({
