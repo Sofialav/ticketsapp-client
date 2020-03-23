@@ -128,3 +128,19 @@ export const loadTicket = id => async dispatch => {
     console.error(error);
   }
 };
+
+// post a comment
+export const ADD_COMMENT = "ADD_COMMENT";
+const newComment = payload => ({
+  type: ADD_COMMENT,
+  payload
+});
+export const addComment = data => async dispatch => {
+  try {
+    const comment = await superagent.post(`${baseUrl}/comments`).send(data);
+    const action = newComment(comment.body);
+    dispatch(action);
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -7,10 +7,10 @@ class UserCabinet extends Component {
     if (author.tickets) {
       tickets = author.tickets.map(ticket => {
         return (
-          <ul>
+          <li key={ticket.id}>
             <div>Price: {ticket.price}</div>
             <div> Posted on: {ticket.createdAt}</div>
-          </ul>
+          </li>
         );
       });
     }
@@ -18,7 +18,7 @@ class UserCabinet extends Component {
       <main>
         <h2>Hi {author.login}!</h2>
         <p>Here you can see all your posted tickets:</p>
-        {tickets}
+        <ul>{tickets}</ul>
       </main>
     );
   };
